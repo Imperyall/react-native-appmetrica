@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import com.yandex.metrica.Revenue;
+import java.util.Currency;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -83,7 +85,6 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
                 .withProductID(productId)
                 .withQuantity(quantity)
                 .build();
-
 
 
         YandexMetrica.reportRevenue(revenue);
