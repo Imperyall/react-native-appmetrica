@@ -34,6 +34,18 @@ RCT_EXPORT_METHOD(reportEvent:(NSString *)message parameters:(nullable NSDiction
     [YMMYandexMetrica reportEvent:message parameters:params onFailure:NULL];
 }
 
+RCT_EXPORT_METHOD(reportRevenue:(NSString *)productId price:(NSDecimalNumber *)price quantity:(NSNumber *)quantity)
+{
+    YMMMutableRevenueInfo *revenueInfo = [[YMMMutableRevenueInfo alloc] initWithPriceDecimal:price currency:@"RUB"];
+                                          revenueInfo.productID = productId;
+                                          revenueInfo.quantity = quantity;
+                                          
+    id<YMMYandexMetricaReporting> reporter = [YMMYandexMetrica reporterForApiKey:@"Testing API key"];
+    [reporter reportRevenue:[revenueInfo copy] onFailure:^(NSError *error) {
+        NSLog(@"Revenue error: %@", error);
+    }];}
+
+
 RCT_EXPORT_METHOD(reportError:(NSString *)message) {
     NSException *exception = [[NSException alloc] initWithName:message reason:nil userInfo:nil];
     [YMMYandexMetrica reportError:message exception:exception onFailure:NULL];
