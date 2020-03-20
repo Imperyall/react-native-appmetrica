@@ -78,6 +78,19 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void reportRevenue(String productId, Double price, Integer quantity) {
+        Revenue revenue = Revenue.newBuilder(price, Currency.getInstance("RUB"))
+                .withProductID(productId)
+                .withQuantity(quantity)
+                .build();
+
+
+
+        YandexMetrica.reportRevenue(revenue);
+
+    }
+
+    @ReactMethod
     public void setUserProfileID(String profileID) {
         YandexMetrica.setUserProfileID(profileID);
     }
