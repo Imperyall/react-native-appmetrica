@@ -1,6 +1,6 @@
 // @flow
 
-import { NativeModules } from "react-native";
+import { NativeModules, Platform } from "react-native";
 const { AppMetrica } = NativeModules;
 
 type ActivationConfig = {
@@ -59,6 +59,13 @@ export default {
    * @param {number} quantity
    */
   reportRevenue(productId: string, price: number, quantity: number) {
-    AppMetrica.reportRevenue(productId, price, quantity);
+    Platform.select({
+      android: AppMetrica.reportRevenue(productId, price, quantity),
+      ios: AppMetrica.reportRevenue(
+        productId,
+        price.toString(),
+        quantity.toString()
+      ),
+    });
   },
 };
