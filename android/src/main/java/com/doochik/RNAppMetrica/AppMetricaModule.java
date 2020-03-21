@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import com.yandex.metrica.Revenue;
-import java.util.Currency;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -14,11 +12,13 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 
 import java.lang.Exception;
+import java.util.Currency;
 
 import org.json.JSONObject;
 
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
+import com.yandex.metrica.Revenue;
 
 public class AppMetricaModule extends ReactContextBaseJavaModule {
     final static String ModuleName = "AppMetrica";
@@ -80,15 +80,13 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void reportRevenue(String productId, Double price, Integer quantity) {
+    public void reportRevenue(String productId, double price, Integer quantity) {
         Revenue revenue = Revenue.newBuilder(price, Currency.getInstance("RUB"))
-                .withProductID(productId)
-                .withQuantity(quantity)
-                .build();
-
+            .withProductID(productId)
+            .withQuantity(quantity)
+            .build();
 
         YandexMetrica.reportRevenue(revenue);
-
     }
 
     @ReactMethod
