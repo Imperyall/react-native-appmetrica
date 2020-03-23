@@ -80,7 +80,7 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void reportRevenue(String productId, double price, Integer quantity) {
+    public void reportRevenue(String productId, Double price, Integer quantity) {
         Revenue revenue = Revenue.newBuilder(price, Currency.getInstance("RUB"))
             .withProductID(productId)
             .withQuantity(quantity)
